@@ -1,0 +1,20 @@
+.wy-side-nav-search{
+    background-color: #efefef !important;
+}
+
+.wy-nav-side{
+    background-color: #efefef !important;
+}
+
+
+.rst-versions{
+    background-color: #efefef !important;
+}
+
+.rst-versions .rst-current-version{
+    background-color: #efefef !important;
+}
+
+.wy-side-nav-search > a {
+    color:#000;
+}
