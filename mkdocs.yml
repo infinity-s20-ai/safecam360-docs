@@ -1,0 +1,5 @@
+site_name: Safecam360
+site_url: https://example.com/
+theme: readthedocs
+extra_css:
+  - stylesheets/extra_css.css
