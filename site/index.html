@@ -64,6 +64,10 @@
         
             <li><a class="toctree-l3" href="#props">Props</a></li>
         
+            <li><a class="toctree-l3" href="#example">Example</a></li>
+        
+            <li><a class="toctree-l3" href="#troubleshooting">Troubleshooting</a></li>
+        
         </ul>
     
 
@@ -105,42 +109,26 @@
                 <h1 id="safecam360-viewer">Safecam360 Viewer</h1>
 <p>360° viewer for interior and exterior views of a product with hotspots. </p>
 <h2 id="installation">Installation</h2>
-<p>Direct import. Add the following inside your index.html file inside the root directory of your React app</p>
+<p>Add the following inside your index.html file inside the root directory of your React app</p>
 <pre><code class="html">&lt;script src=&lt;JS_BUNDLEFILE_PATH&gt; /&gt;
 </code></pre>
 
-<p>Production SDK url - <a href="https://safecam.s20.ai/safecam360/safecam360-viewer-web_sdk-0.1.0">https://safecam.s20.ai/safecam360/safecam360-viewer-web_sdk-0.1.0</a> (this can be set as the <code>src</code> attribute above)</p>
+<p>Production SDK url - <a href="https://staging.s20.ai/safecam360/safecam360-viewer-web_sdk-0.1.0/Safecam360Viewer.js">https://staging.s20.ai/safecam360/safecam360-viewer-web_sdk-0.1.0/Safecam360Viewer.js</a> (this can be set as the <code>src</code> attribute above)</p>
 <h2 id="quick-start">Quick Start</h2>
 <pre><code class="html">&lt;safecam-360-viewer 
-    interior360={JSON.stringify([{
-        interior360Type:&quot;cubemap&quot;,
-        imageSource: [
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/pz.jpg&quot;,
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/px.jpg&quot;,
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/nz.jpg&quot;,
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/nx.jpg&quot;,
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/py.jpg&quot;,
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/ny.jpg&quot;,
-        ],
-        hotspots:[]
-
-
-    }])}
-    exterior360={JSON.stringify([{
-
-        imageSource:
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/exterior/{frame}.jpg&quot;,
-        frames: 54,
-        index: 1,
-        hotspots:[]
-
-      }])}
-    enableHotspots = {true}
-
-
+    interior360={[]}
+    exterior360={[]}
+    galleryData={[]}   
 &gt;&lt;/safecam-360-viewer&gt;
 </code></pre>
 
+<h3 id="data-source-integration">Data source integration</h3>
+<p>To automatically fetch data in the prop format shown below, you can make the following requests:</p>
+<ol>
+<li>To authenticate yourself, make a POST request to <code>https://safecam360.s20.ai/api/auth</code> with an <code>email</code> and <code>password</code> as the body. (you can <a href="mailto:infinity@s20.ai">contact us</a> if you want your own set of credentials)
+  You will receive a token as the response. </li>
+<li>To fetch data, make a GET request to <code>https://safecam360.s20.ai/api/capture/get-prop-data/&lt;productId&gt;</code> Here, the productId is a unique ID given to a specific product. Set the token received in the step above in the request headers as <code>x-auth-token</code> You will receive the data in the required format and you can plug this into your code as shown in the <a href="#example">example</a> below. </li>
+</ol>
 <h2 id="props">Props</h2>
 <table>
 <thead>
@@ -168,13 +156,6 @@
 <td>An array of objects defining data for the exterior360 type. See object definition <a href="#exterior360">here</a></td>
 </tr>
 <tr>
-<td>hotspotDetails</td>
-<td>object</td>
-<td>{}</td>
-<td>No</td>
-<td>An object defining the hotspot data</td>
-</tr>
-<tr>
 <td>toggleFullscreen</td>
 <td>boolean</td>
 <td>false</td>
@@ -182,11 +163,18 @@
 <td>A boolean to toggle fullscreen mode</td>
 </tr>
 <tr>
-<td>enableHotspots</td>
-<td>boolean</td>
-<td>false</td>
+<td>galleryData</td>
+<td>array</td>
+<td>undefined</td>
 <td>No</td>
-<td>A boolean to toggle hotspots</td>
+<td>An array of objects defining data for the gallery. See object definition <a href="#galleryData">here</a></td>
+</tr>
+<tr>
+<td>hotspotIcon</td>
+<td>string</td>
+<td>undefined</td>
+<td>No</td>
+<td>A URL string specifying an icon for hotspots. Major image formats and SVGs are supported.</td>
 </tr>
 </tbody>
 </table>
@@ -203,18 +191,25 @@
 </thead>
 <tbody>
 <tr>
+<td>id</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>A unique identifier denoting the current hotspot</td>
+</tr>
+<tr>
 <td>spinTitle</td>
 <td>string</td>
 <td>undefined</td>
-<td>No</td>
-<td>Title of spin</td>
+<td>Yes</td>
+<td>Title of the current mode</td>
 </tr>
 <tr>
 <td>interior360Type</td>
 <td>string</td>
-<td>cubemap</td>
+<td>equirectangular</td>
 <td>Yes</td>
-<td>Type of interior 360</td>
+<td>Type of interior 360 image  (equirectangular or cubemap)</td>
 </tr>
 <tr>
 <td>imageSource</td>
@@ -228,7 +223,7 @@
 <td>array</td>
 <td>[]</td>
 <td>No</td>
-<td>Hotspot data for internal hotspots</td>
+<td>Array of objects representing hotspot data. The structure of this field can be seen <a href="#interior-hotspot">here</a></td>
 </tr>
 </tbody>
 </table>
@@ -245,18 +240,39 @@
 </thead>
 <tbody>
 <tr>
-<td>spinTitle</td>
-<td>string</td>
-<td>undefined</td>
-<td>No</td>
-<td>Title of spin</td>
-</tr>
-<tr>
-<td>imageSource</td>
+<td>id</td>
 <td>string</td>
 <td>undefined</td>
 <td>Yes</td>
-<td>Image url of first image</td>
+<td>A unique identifier denoting the current hotspot</td>
+</tr>
+<tr>
+<td>spinTitle</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Title of the current mode</td>
+</tr>
+<tr>
+<td>imageSource</td>
+<td>array</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>An array of image sources</td>
+</tr>
+<tr>
+<td>highResImages</td>
+<td>array</td>
+<td>undefined</td>
+<td>No</td>
+<td>An array of high resolution image sources (for zoom)</td>
+</tr>
+<tr>
+<td>hotspotImages</td>
+<td>array</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Description of each hotspot image. See object definition <a href="#hotspot-image">here</a></td>
 </tr>
 <tr>
 <td>frames</td>
@@ -277,10 +293,301 @@
 <td>array</td>
 <td>[]</td>
 <td>Yes</td>
-<td>Hotspot data for external hotspots</td>
+<td>Array of objects representing hotspot data. The structure of this field can be seen <a href="#exterior-hotspot">here</a></td>
 </tr>
 </tbody>
 </table>
+<h3 id="gallerydata">galleryData</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Title/caption for the image</td>
+</tr>
+<tr>
+<td>imageSource</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>URL string for the image</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interior-hotspot">Interior Hotspot</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pitch</td>
+<td>number</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>The pitch value of where the hotspot should be present in the 360 view</td>
+</tr>
+<tr>
+<td>yaw</td>
+<td>number</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>The yaw value of where the hotspot should be present in the 360 view</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Type of hotspot (damage or feature)</td>
+</tr>
+<tr>
+<td>index</td>
+<td>number</td>
+<td>1</td>
+<td>Yes</td>
+<td>Index of first image needed for external 360</td>
+</tr>
+<tr>
+<td>hotspotRefId</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Reference ID or tag for the hotspot</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Description of the hotspot</td>
+</tr>
+<tr>
+<td>triggerFrame</td>
+<td>object</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>The final point that needs to be triggered once the hotspot is selected</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exterior-hotspot">Exterior Hotspot</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>A unique identifier for the hotspot</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Type of hotspot (damage or feature)</td>
+</tr>
+<tr>
+<td>display</td>
+<td>array[int, boolean]</td>
+<td>undefined</td>
+<td>No</td>
+<td>Contains information about hotspot scaling and the hotspot focus frame. e.g [0.79, false]   - Here, the first entry is the scale of the hotspot in a given frame and the second entry indicates if the hotspot should be in focus or not</td>
+</tr>
+<tr>
+<td>frameId</td>
+<td>number</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>The frame number in which the hotspot is to be displayed</td>
+</tr>
+<tr>
+<td>x</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>x-coordinate of the hotspot in the frame</td>
+</tr>
+<tr>
+<td>y</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>y-coordinate of the hotspot in the frame</td>
+</tr>
+<tr>
+<td>hotspotRefId</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Reference ID or tag for the hotspot</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Description of the hotspot</td>
+</tr>
+<tr>
+<td>triggerFrame</td>
+<td>object</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>The final point that needs to be triggered once the hotspot is selected</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hotspot-image">Hotspot Image</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hotspotRefId</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Reference ID or tag for the hotspot image</td>
+</tr>
+<tr>
+<td>imageSrc</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>URL string for the image</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<pre><code class="javascript">&lt;safecam-360-viewer 
+    interior360={JSON.stringify([{
+    spinTitle: &quot;Interior 360&quot;
+    interior360Type: &quot;equirectangular&quot;,
+    imageSource: [ &quot;https://safecam360-mobile-images.s3.ap-south-1.amazonaws.com/demo/interior360_demo.jpeg&quot; ],
+    hotspotImages: [
+    {
+      hotspotRefId: &quot;internal-hotpsot-steering&quot;
+      imageSrc: &quot;https://&quot;
+    },
+    {
+      hotspotRefId: &quot;internal-hotpsot-infotainment-system&quot;
+      imageSrc: &quot;https://&quot;
+    }
+  ]
+    hotspots: [
+    {
+      pitch: 4.140852751630522,
+      yaw: 23.544021973218946,
+      hotspotRefId: &quot;internal-hotpsot-steering&quot;,
+      triggerFrame: {
+        pitch: -6.5250622571992025,
+        yaw: -24.67466498175444
+      }.
+      description: &quot;Sample description&quot;
+    },
+    {
+      pitch: -6.032111892702112,
+      yaw: -1.552639896791029,
+      hotspotRefId: &quot;internal-hotpsot-infotainment-system&quot;
+      triggerFrame: {
+        pitch: -6.5250622571992025,
+        yaw: -24.67466498175444
+      },
+      description: &quot;Sample description&quot;,
+      imageSrc: &quot;https://&quot;
+    }
+  ]
+
+
+}])}
+exterior360 = {JSON.stringify([{
+    spinTitle: &quot;Close door spin&quot;
+    imageSource: [ &quot;https://safecam360-mobile-images.s3.ap-south-1.amazonaws.com/demo/spin/hd/img_01.jpg&quot;, ... ],
+    highResImages: [ &quot;https://safecam360-mobile-images.s3.ap-south-1.amazonaws.com/demo/spin/high_res/img_01.jpg&quot;, ... ],
+    frames: 54,
+    index: 1,
+    hotspotImages:[
+      {
+        hotspotRefId: &quot;headlight-hotspot&quot;
+        imageSrc: &quot;https://&quot;
+      },
+      {
+        hotspotRefId: &quot;orvm-left-hotspot&quot;
+        imageSrc: &quot;https://&quot;
+      }
+    ]
+    hotspots:[
+      {
+        frameId: 1,
+        x: 23.4,
+        y: 44.5,
+        triggerFrame: 6,
+        description: &quot;Sample description&quot;,
+        hotspotRefId: &quot;headlight-hotspot&quot;
+      },
+      {
+        frameId: 1,
+        x: 23.4,
+        y: 44.5,
+        triggerFrame: 7,
+        description: &quot;Sample description&quot;,
+        hotspotRefId: &quot;orvm-left-hotspot&quot;,
+        imageSrc: &quot;https://&quot;
+      },
+      ...
+    ]
+    galleryData: [
+       {
+          title: &quot;Front View&quot;,
+          imageSource: &quot;https://safecam360-mobile-images.s3.ap-south-1.amazonaws.com/TEST1935/slot/car0368_0.jpeg&quot;,
+       },
+       {
+          title: &quot;45˚ Left Front View&quot;,
+          imageSource: &quot;https://safecam360-mobile-images.s3.ap-south-1.amazonaws.com/TEST1935/slot/car0368_13.jpeg&quot;,
+       }
+    ]
+
+  }])}
+/&gt;
+</code></pre>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>If you run into any problems, send us an email at <a href="mailto:infinity@s20.ai">infinity@20.ai</a> and we'll be happy to help you out!</p>
               
             </div>
           </div>
@@ -320,5 +627,5 @@
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2021-08-06 13:17:05
+Build Date UTC : 2022-03-22 21:57:14
 -->
