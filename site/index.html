@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="None">
+  <meta name="description" content="Usage docs for Safecam360 SDKs">
   
   <link rel="shortcut icon" href="img/favicon.ico">
-  <title>Safecam360 Viewer - Safecam360</title>
+  <title>Introduction - Safecam360</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="css/theme.css" type="text/css" />
@@ -18,9 +18,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Safecam360 Viewer";
+    var mkdocs_page_name = "Introduction";
     var mkdocs_page_input_path = "index.md";
-    var mkdocs_page_url = "/";
+    var mkdocs_page_url = null;
   </script>
   
   <script src="js/jquery-2.1.1.min.js" defer></script>
@@ -51,23 +51,38 @@
           
             <li class="toctree-l1 current">
 		
-    <a class="current" href=".">Safecam360 Viewer</a>
+    <a class="current" href=".">Introduction</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#safecam360-viewer">Safecam360 Viewer</a></li>
+    <li class="toctree-l2"><a href="#introduction">Introduction</a></li>
     
         <ul>
         
-            <li><a class="toctree-l3" href="#installation">Installation</a></li>
+            <li><a class="toctree-l3" href="#about">About</a></li>
         
-            <li><a class="toctree-l3" href="#quick-start">Quick Start</a></li>
+            <li><a class="toctree-l3" href="#data-source-integration">Data source integration</a></li>
         
-            <li><a class="toctree-l3" href="#props">Props</a></li>
+            <li><a class="toctree-l3" href="#common-props">Common Props</a></li>
         
         </ul>
     
 
     </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="viewer/">Safecam360 React JS SDK</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="mobile/">Safecam360 React Native SDK</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="footer/">Troubleshooting</a>
 	    </li>
           
         </ul>
@@ -92,7 +107,7 @@
     
       
     
-    <li>Safecam360 Viewer</li>
+    <li>Introduction</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -102,94 +117,18 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="safecam360-viewer">Safecam360 Viewer</h1>
-<p>360° viewer for interior and exterior views of a product with hotspots. </p>
-<h2 id="installation">Installation</h2>
-<p>Direct import. Add the following inside your index.html file inside the root directory of your React app</p>
-<pre><code class="html">&lt;script src=&lt;JS_BUNDLEFILE_PATH&gt; /&gt;
-</code></pre>
-
-<p>Production SDK url - <a href="https://safecam.s20.ai/safecam360/safecam360-viewer-web_sdk-0.1.0">https://safecam.s20.ai/safecam360/safecam360-viewer-web_sdk-0.1.0</a> (this can be set as the <code>src</code> attribute above)</p>
-<h2 id="quick-start">Quick Start</h2>
-<pre><code class="html">&lt;safecam-360-viewer 
-    interior360={JSON.stringify([{
-        interior360Type:&quot;cubemap&quot;,
-        imageSource: [
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/pz.jpg&quot;,
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/px.jpg&quot;,
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/nz.jpg&quot;,
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/nx.jpg&quot;,
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/py.jpg&quot;,
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/interior_360/ny.jpg&quot;,
-        ],
-        hotspots:[]
-
-
-    }])}
-    exterior360={JSON.stringify([{
-
-        imageSource:
-          &quot;https://cars24-images.s3.ap-south-1.amazonaws.com/safecam360/mt27xq/hd/exterior/{frame}.jpg&quot;,
-        frames: 54,
-        index: 1,
-        hotspots:[]
-
-      }])}
-    enableHotspots = {true}
-
-
-&gt;&lt;/safecam-360-viewer&gt;
-</code></pre>
-
-<h2 id="props">Props</h2>
-<table>
-<thead>
-<tr>
-<th>Property</th>
-<th>Type</th>
-<th>Default</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>interior360</td>
-<td>array</td>
-<td>[]</td>
-<td>Yes</td>
-<td>An array of objects defining data for the interior360 type. See object definition <a href="#interior360">here</a>.</td>
-</tr>
-<tr>
-<td>exterior360</td>
-<td>array</td>
-<td>[]</td>
-<td>Yes</td>
-<td>An array of objects defining data for the exterior360 type. See object definition <a href="#exterior360">here</a></td>
-</tr>
-<tr>
-<td>hotspotDetails</td>
-<td>object</td>
-<td>{}</td>
-<td>No</td>
-<td>An object defining the hotspot data</td>
-</tr>
-<tr>
-<td>toggleFullscreen</td>
-<td>boolean</td>
-<td>false</td>
-<td>No</td>
-<td>A boolean to toggle fullscreen mode</td>
-</tr>
-<tr>
-<td>enableHotspots</td>
-<td>boolean</td>
-<td>false</td>
-<td>No</td>
-<td>A boolean to toggle hotspots</td>
-</tr>
-</tbody>
-</table>
+                <h1 id="introduction">Introduction</h1>
+<h2 id="about">About</h2>
+<p>The following docs include web and mobile SDKs for a 360° viewer for interior and exterior views of a product with hotspots. </p>
+<h2 id="data-source-integration">Data source integration</h2>
+<p>To automatically fetch data in the prop format shown below, you can make the following requests:</p>
+<ol>
+<li>To authenticate yourself, make a POST request to <code>https://safecam360.s20.ai/api/auth</code> with an <code>email</code> and <code>password</code> as the body. (you can <a href="mailto:infinity@s20.ai">contact us</a> if you want your own set of credentials)
+  You will receive a token as the response. </li>
+<li>To fetch data, make a GET request to <code>https://safecam360.s20.ai/api/capture/get-prop-data/&lt;productId&gt;</code> Here, the productId is a unique ID given to a specific product. Set the token received in the step above in the request headers as <code>x-auth-token</code> You will receive the data in the required format and you can plug this into your code as shown in the examples. </li>
+</ol>
+<h2 id="common-props">Common Props</h2>
+<p>The following props are common across web and mobile: </p>
 <h3 id="interior360">interior360</h3>
 <table>
 <thead>
@@ -203,18 +142,25 @@
 </thead>
 <tbody>
 <tr>
+<td>id</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>A unique identifier denoting the current hotspot</td>
+</tr>
+<tr>
 <td>spinTitle</td>
 <td>string</td>
 <td>undefined</td>
-<td>No</td>
-<td>Title of spin</td>
+<td>Yes</td>
+<td>Title of the current mode</td>
 </tr>
 <tr>
 <td>interior360Type</td>
 <td>string</td>
-<td>cubemap</td>
+<td>equirectangular</td>
 <td>Yes</td>
-<td>Type of interior 360</td>
+<td>Type of interior 360 image  (equirectangular or cubemap)</td>
 </tr>
 <tr>
 <td>imageSource</td>
@@ -228,7 +174,7 @@
 <td>array</td>
 <td>[]</td>
 <td>No</td>
-<td>Hotspot data for internal hotspots</td>
+<td>Array of objects representing hotspot data. The structure of this field can be seen <a href="#interior-hotspot">here</a></td>
 </tr>
 </tbody>
 </table>
@@ -245,18 +191,39 @@
 </thead>
 <tbody>
 <tr>
-<td>spinTitle</td>
-<td>string</td>
-<td>undefined</td>
-<td>No</td>
-<td>Title of spin</td>
-</tr>
-<tr>
-<td>imageSource</td>
+<td>id</td>
 <td>string</td>
 <td>undefined</td>
 <td>Yes</td>
-<td>Image url of first image</td>
+<td>A unique identifier denoting the current hotspot</td>
+</tr>
+<tr>
+<td>spinTitle</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Title of the current mode</td>
+</tr>
+<tr>
+<td>imageSource</td>
+<td>array</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>An array of image sources</td>
+</tr>
+<tr>
+<td>highResImages</td>
+<td>array</td>
+<td>undefined</td>
+<td>No</td>
+<td>An array of high resolution image sources (for zoom)</td>
+</tr>
+<tr>
+<td>hotspotImages</td>
+<td>array</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Description of each hotspot image. See object definition <a href="#hotspot-image">here</a></td>
 </tr>
 <tr>
 <td>frames</td>
@@ -277,14 +244,194 @@
 <td>array</td>
 <td>[]</td>
 <td>Yes</td>
-<td>Hotspot data for external hotspots</td>
+<td>Array of objects representing hotspot data. The structure of this field can be seen <a href="#exterior-hotspot">here</a></td>
 </tr>
 </tbody>
 </table>
+<h3 id="interior-hotspot">Interior Hotspot</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pitch</td>
+<td>number</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>The pitch value of where the hotspot should be present in the 360 view</td>
+</tr>
+<tr>
+<td>yaw</td>
+<td>number</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>The yaw value of where the hotspot should be present in the 360 view</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Type of hotspot (damage or feature)</td>
+</tr>
+<tr>
+<td>index</td>
+<td>number</td>
+<td>1</td>
+<td>Yes</td>
+<td>Index of first image needed for external 360</td>
+</tr>
+<tr>
+<td>hotspotRefId</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Reference ID or tag for the hotspot</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Description of the hotspot</td>
+</tr>
+<tr>
+<td>triggerFrame</td>
+<td>object</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>The final point that needs to be triggered once the hotspot is selected</td>
+</tr>
+</tbody>
+</table>
+<h3 id="exterior-hotspot">Exterior Hotspot</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>A unique identifier for the hotspot</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Type of hotspot (damage or feature)</td>
+</tr>
+<tr>
+<td>display</td>
+<td>array[int, boolean]</td>
+<td>undefined</td>
+<td>No</td>
+<td>Contains information about hotspot scaling and the hotspot focus frame. e.g [0.79, false]   - Here, the first entry is the scale of the hotspot in a given frame and the second entry indicates if the hotspot should be in focus or not</td>
+</tr>
+<tr>
+<td>frameId</td>
+<td>number</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>The frame number in which the hotspot is to be displayed</td>
+</tr>
+<tr>
+<td>x</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>x-coordinate of the hotspot in the frame</td>
+</tr>
+<tr>
+<td>y</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>y-coordinate of the hotspot in the frame</td>
+</tr>
+<tr>
+<td>hotspotRefId</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Reference ID or tag for the hotspot</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Description of the hotspot</td>
+</tr>
+<tr>
+<td>triggerFrame</td>
+<td>object</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>The final point that needs to be triggered once the hotspot is selected</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hotspot-image">Hotspot Image</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hotspotRefId</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>Reference ID or tag for the hotspot image</td>
+</tr>
+<tr>
+<td>imageSrc</td>
+<td>string</td>
+<td>undefined</td>
+<td>Yes</td>
+<td>URL string for the image</td>
+</tr>
+</tbody>
+</table>
+<h3 id="detailed-usage">Detailed Usage</h3>
+<ol>
+<li>Check out our <a href="viewer#safecam360-react-js-sdk">React JS SDK</a></li>
+<li>Check out our <a href="mobile#safecam360-react-native-sdk">React Native SDK</a></li>
+</ol>
               
             </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="viewer/" class="btn btn-neutral float-right" title="Safecam360 React JS SDK">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
   
 
   <hr/>
@@ -309,6 +456,8 @@
       
       
       
+        <span style="margin-left: 15px"><a href="viewer/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
     </span>
 </div>
     <script>var base_url = '.';</script>
@@ -320,5 +469,5 @@
 
 <!--
 MkDocs version : 1.0.4
-Build Date UTC : 2021-08-06 13:17:05
+Build Date UTC : 2022-05-28 13:13:01
 -->

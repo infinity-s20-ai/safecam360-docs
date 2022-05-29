@@ -1,5 +1,14 @@
 site_name: Safecam360
-site_url: https://example.com/
-theme: readthedocs
+site_description: Usage docs for Safecam360 SDKs
+theme:
+  name: readthedocs
+  features:
+    - navigation.expand
 extra_css:
   - stylesheets/extra_css.css
+nav:
+  - 'index.md'
+  - 'viewer.md'
+  - 'mobile.md'
+  - 'footer.md'
+
