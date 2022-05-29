@@ -77,6 +77,5 @@ The following props are common across web and mobile:
 
 ### Detailed Usage
 
-
 1. Check out our [React JS SDK](viewer#safecam360-react-js-sdk)
 2. Check out our [React Native SDK](mobile#safecam360-react-native-sdk)

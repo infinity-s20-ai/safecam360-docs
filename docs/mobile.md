@@ -6,7 +6,7 @@
 
 
 ```bash
-npm install safecam-360-rn
+npm install @s20.ai/safecam-360-rn
 ```
 
 ## Dependencies
