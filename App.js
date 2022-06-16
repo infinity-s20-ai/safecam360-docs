@@ -4,7 +4,7 @@ import {Safecam360} from "@s20.ai/safecam-360-rn"
 const App = () => {
     return (
         <Safecam360
-        interior360={{
+        interiorData={{
             "id": "interior-360",
             "spinTitle": "Interior 360",
             "iconSource": "https://safecam-org-logos.s3.ap-south-1.amazonaws.com/car_interior.png",
@@ -78,7 +78,7 @@ const App = () => {
             }]
         }}
 
-        exterior360 = {
+        exteriorData = {
             {"id": "closed-door-spin",
             "spinTitle": "Closed Door Spin",
             "iconSource": "https://safecam-org-logos.s3.ap-south-1.amazonaws.com/car_door_closed.png",
